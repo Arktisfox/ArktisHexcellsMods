@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32929.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexcellsMpShared", "HexcellsMpShared\HexcellsMpShared.csproj", "{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexcellsMpMod", "HexcellsMpMod\HexcellsMpMod.csproj", "{9E904F7F-14A3-44FD-8214-D8FF2149C866}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Debug|x86.ActiveCfg = Debug|x86
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Debug|x86.Build.0 = Debug|x86
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Release|x86.ActiveCfg = Release|x86
+		{15A3FBFD-468D-4A4F-899F-F8B48A2CC554}.Release|x86.Build.0 = Release|x86
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Debug|x86.ActiveCfg = Debug|x86
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Debug|x86.Build.0 = Debug|x86
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|x86.ActiveCfg = Release|x86
+		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F3C185E-5B7C-4542-BB14-F21E83B55DE6}
+	EndGlobalSection
+EndGlobal
