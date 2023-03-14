@@ -4,7 +4,7 @@ A multiplayer mod for Hexcells Infinite
 ## Starting/joining a session
 To host a multiplayer game, go to the Hexcells Infinite properties on Steam, and set the Launch Options to `-mphost`
 
-To join a multiplayer game, go to the Hexcells Infinite properties on STeam, and set the Launch Options to `-mpjoin IP` ex. `-mpjoin 192.168.0.1`
+To join a multiplayer game, go to the Hexcells Infinite properties on Steam, and set the Launch Options to `-mpjoin IP` ex. `-mpjoin 192.168.0.1`
 
 The mod runs on port 6666
 
