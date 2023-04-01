@@ -1,6 +1,7 @@
-# Hexcells Infinite Multiplayer
-A multiplayer mod for Hexcells Infinite
+# Hexcells Infinite Mods
+My repository for my hexcells mods including the multiplayer and potential cells mod
 
+# Multiplayer mod
 ## Starting/joining a session
 To host a multiplayer game, go to the Hexcells Infinite properties on Steam, and set the Launch Options to `-mphost`
 
