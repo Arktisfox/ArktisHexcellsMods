@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexcellsMpShared", "Hexcell
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexcellsMpMod", "HexcellsMpMod\HexcellsMpMod.csproj", "{9E904F7F-14A3-44FD-8214-D8FF2149C866}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotentialCellsMod", "PotentialCellsMod\PotentialCellsMod.csproj", "{B331C071-63F2-4C2C-9C69-0AF10B5E3623}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|x86.ActiveCfg = Release|x86
 		{9E904F7F-14A3-44FD-8214-D8FF2149C866}.Release|x86.Build.0 = Release|x86
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Debug|x86.Build.0 = Debug|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Release|x86.ActiveCfg = Release|x86
+		{B331C071-63F2-4C2C-9C69-0AF10B5E3623}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
