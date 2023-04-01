@@ -225,7 +225,7 @@ namespace HexcellsMpMod
 			boxStyle.normal.textColor = Color.white;
 			boxStyle.richText = true;
 			boxStyle.padding = new RectOffset(8, 8, 2, 2);
-
+			
 			boxStyleDone = new GUIStyle(boxStyle);
 			boxStyleDone.normal.background = Utils.MakeTex(2, 2, Color.white);
 			boxStyleDone.normal.textColor = Color.white;
@@ -347,22 +347,36 @@ namespace HexcellsMpMod
 		private void DrawPeerCards()
 		{
 			int count = client.Peers.Count;
+			var scoreboard = GetScoreboard();
 
 			float spacing = 16f;
 			float totalSpacing = Math.Max(0, client.Peers.Count - 1) * spacing * 0.5f;
 
 			float cardWidth = 180f * uiScale;
 			float cardHeight = 64f * uiScale;
+			float totalCardWidth = cardWidth * count;
 
 			float screenCenter = (float)Screen.width / 2f;
 			float cardWidthHalf = cardWidth / 2f;
 
 			float drawOriginX = screenCenter - (count * cardWidthHalf) - totalSpacing;
+			float drawOriginY = 4f;
+			float drawEndX = drawOriginX + totalCardWidth + totalSpacing;
+			float drawEndY = drawOriginY + cardHeight;
 
+			// detect mouse hovering card area and set UI color accordingly
+			Vector3 mousePosition = Input.mousePosition;
+			bool mouseHoveringUI = (mousePosition.x >= drawOriginX && mousePosition.x <= drawEndX) 
+							    && (mousePosition.y > (Screen.height - drawEndY));
+			
+			Color oldUIColor = GUI.color;
+			GUI.color = (mouseHoveringUI) ? new Color(1f, 1f, 1f, 0.5f) : Color.white;
+
+			// draw the cards
 			int numDrawn = 0;
-			foreach (HexPeer hexPeer in GetScoreboard())
+			foreach (HexPeer hexPeer in scoreboard)
 			{
-				Rect cardRect = new Rect(drawOriginX + (numDrawn * (cardWidth + spacing)), 4f, cardWidth, cardHeight);
+				Rect cardRect = new Rect(drawOriginX + (numDrawn * (cardWidth + spacing)), drawOriginY, cardWidth, cardHeight);
 
 				string cardText;
 				if (hexPeer.CurrentState == HexPeer.State.InMenu)
@@ -387,10 +401,16 @@ namespace HexcellsMpMod
 				}
 
 				float boxShadowOffset = 16f * uiScale;
+				var style = (hexPeer.CurrentState == HexPeer.State.InPuzzleComplete) ? boxStyleDone : boxStyle;
+
 				GUI.DrawTexture(new Rect(cardRect.x - boxShadowOffset, cardRect.y + boxShadowOffset, cardRect.width, cardRect.height), boxShadow);
-				GUI.Box(cardRect, cardText.ToUpperInvariant(), (hexPeer.CurrentState == HexPeer.State.InPuzzleComplete) ? boxStyleDone : boxStyle);
+				GUI.DrawTexture(cardRect, style.normal.background);
+				GUI.Label(cardRect, cardText.ToUpperInvariant(), style);
 				numDrawn++;
 			}
+
+			// restore UI color
+			GUI.color = oldUIColor;
 		}
 	}
 }
