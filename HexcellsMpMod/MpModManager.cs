@@ -350,7 +350,7 @@ namespace HexcellsMpMod
 			var scoreboard = GetScoreboard();
 
 			float spacing = 16f;
-			float totalSpacing = Math.Max(0, client.Peers.Count - 1) * spacing * 0.5f;
+			float totalSpacing = Math.Max(0, client.Peers.Count - 1) * spacing;
 
 			float cardWidth = 180f * uiScale;
 			float cardHeight = 64f * uiScale;
@@ -359,7 +359,7 @@ namespace HexcellsMpMod
 			float screenCenter = (float)Screen.width / 2f;
 			float cardWidthHalf = cardWidth / 2f;
 
-			float drawOriginX = screenCenter - (count * cardWidthHalf) - totalSpacing;
+			float drawOriginX = screenCenter - (count * cardWidthHalf) - (totalSpacing * 0.5f);
 			float drawOriginY = 4f;
 			float drawEndX = drawOriginX + totalCardWidth + totalSpacing;
 			float drawEndY = drawOriginY + cardHeight;
