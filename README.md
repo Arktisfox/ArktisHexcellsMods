@@ -1,13 +1,18 @@
 # Hexcells Infinite Mods
 My repository for my hexcells mods including the multiplayer and potential cells mod
 
+# Potential cells mod
+Middle click to cycle a cell cell between potential blue, potential black, and back to normal
+
+Press CTRL+X to reset all cells back to normal
+
 # Multiplayer mod
 ## Starting/joining a session
 To host a multiplayer game, go to the Hexcells Infinite properties on Steam, and set the Launch Options to `-mphost`
 
 To join a multiplayer game, go to the Hexcells Infinite properties on Steam, and set the Launch Options to `-mpjoin IP` ex. `-mpjoin 192.168.0.1`
 
-The mod runs on port 6666
+The mod runs on port 6666, and the maximum player limit is 6 (including the host)
 
 ## Playing
 Currently the mod only supports the Infinite (Generated) levels mode. The host should go into the infinite screen, select a seed and difficulty, and upon starting, other players in the session will be pulled into the game with the same settings. From here you race to the finish with the pressure of your peers completing the same puzzle.
