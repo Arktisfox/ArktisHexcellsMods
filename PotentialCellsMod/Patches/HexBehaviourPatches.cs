@@ -8,32 +8,13 @@ namespace PotentialCellsMod.Patches
     /// Create materials
     /// </summary>
     [HarmonyPatch(typeof(HexBehaviour), nameof(HexBehaviour.Start))]
-    class HexBehaviorStartPatch
+    class HexBehaviourStartPatch
     {
-        static void CreateMaterials(Material reference)
-        {
-            Data.Materials.potentialMaterialLight = Object.Instantiate(reference);
-            Data.Materials.potentialMaterialDark = Object.Instantiate(reference);
-
-            Texture2D darkTexture = new Texture2D(8, 8, TextureFormat.ARGB32, true);
-            darkTexture.LoadImage(Properties.Resources.hex_black_potential);
-            darkTexture.Apply(true);
-            Data.Materials.potentialMaterialDark.mainTexture = darkTexture;
-
-            Texture2D lightTexture = new Texture2D(8, 8, TextureFormat.ARGB32, true);
-            lightTexture.LoadImage(Properties.Resources.hex_blue_potential);
-            lightTexture.Apply(true);
-            Data.Materials.potentialMaterialLight.mainTexture = lightTexture;
-        }
-
         static void Postfix(HexBehaviour __instance)
         {
             var mainField = typeof(HexBehaviour).GetField("main", BindingFlags.Public | BindingFlags.Instance);
-            if(Data.Materials.potentialMaterialLight == null)
-            {
-                Material mainMaterial = mainField.GetValue(__instance) as Material;
-                CreateMaterials(mainMaterial);
-            }
+            Material mainMaterial = mainField.GetValue(__instance) as Material;
+            Data.Materials.CreateMaterials(mainMaterial);
         }
     }
 
@@ -41,7 +22,7 @@ namespace PotentialCellsMod.Patches
     /// Don't swap materials if we're using our custom ones
     /// </summary>
     [HarmonyPatch(typeof(HexBehaviour), nameof(HexBehaviour.OnMouseExit))]
-    class HexBehaviorOnMouseExitPatch
+    class HexBehaviourOnMouseExitPatch
     {
         static bool Prefix(HexBehaviour __instance)
         {
@@ -57,7 +38,7 @@ namespace PotentialCellsMod.Patches
     /// Restore custom material after hover.. Kind of ugly :(
     /// </summary>
     [HarmonyPatch(typeof(HexBehaviour), nameof(HexBehaviour.OnMouseEnter))]
-    class HexBehaviorOnMouseEnterPatch
+    class HexBehaviourOnMouseEnterPatch
     {
         static void Prefix(HexBehaviour __instance, out Material __state)
         {
@@ -81,7 +62,7 @@ namespace PotentialCellsMod.Patches
     /// Assign custom materials
     /// </summary>
     [HarmonyPatch(typeof(HexBehaviour), nameof(HexBehaviour.OnMouseOver))]
-    class HexBehaviorOnMouseOverPatch
+    class HexBehaviourOnMouseOverPatch
     {
         static void Postfix(HexBehaviour __instance)
         {
