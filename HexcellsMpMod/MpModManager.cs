@@ -94,6 +94,7 @@ namespace HexcellsMpMod
 				client = new Client(personaName)
 				{
 					OnGameStart = new Action<int, bool>(StartGameCB),
+					OnGameStartCustom = new Action<int, string>(StartGameCustomCB),
 					OnGameEnd = new Action(QuitGameCB)
 				};
 				client.Connect(address, 6666);
@@ -161,11 +162,34 @@ namespace HexcellsMpMod
 			GameObject.Find("Loading Text").GetComponent<LoadingText>().FadeIn();
 		}
 
+		private void StartGameCustomCB(int levelIndex, string levelText)
+		{
+			var levelManager = GameObject.Find("Custom Level Manager(Clone)").GetComponent<CustomLevelManager>();
+			
+			levelManager.SetRandomMusic();
+			levelManager.levelDataString = levelText;
+			levelManager.currentLevelIndex = levelIndex;
+
+            GameObject.Find("Fader").GetComponent<FaderScript>().FadeOut(38);
+			if (GameObject.Find("Loading Text") != null)
+			{
+				GameObject.Find("Loading Text").GetComponent<LoadingText>().FadeIn();
+			}
+        }
+
 		public void HostStartGame(int seed, bool hardMode)
 		{
 			if (server != null)
 			{
 				server.StartGame(seed, hardMode);
+			}
+		}
+
+		public void HostStartGame(int levelIndex, string levelData)
+		{
+			if(server != null)
+			{
+				server.StartCustomGame(levelIndex, levelData);
 			}
 		}
 
@@ -193,7 +217,7 @@ namespace HexcellsMpMod
 				scoring = null;
 
 			bool wasInGameScene = InGameScene;
-			inGameScene = (scene.name == "Level Generator");
+			inGameScene = (scene.name == "Level Generator" || scene.name == "Custom Level");
 			internalState = (InGameScene ? HexPeer.State.InPuzzle : HexPeer.State.InMenu);
 
 			// reset timer only if we're entering into the game scene from the menu

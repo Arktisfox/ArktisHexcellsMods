@@ -79,9 +79,11 @@
   <ItemGroup>
     <Compile Include="MpModManager.cs" />
     <Compile Include="Patches\ContinueSaveButtonPatch.cs" />
+    <Compile Include="Patches\CustomLevelManagerPatch.cs" />
     <Compile Include="Patches\GameManagerScriptPatch.cs" />
     <Compile Include="Patches\LevelCompleteButtonsPatch.cs" />
     <Compile Include="Patches\MenuExitButtonPatch.cs" />
+    <Compile Include="Patches\RedditListObjectPatch.cs" />
     <Compile Include="Patches\StartGeneratorLevelPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

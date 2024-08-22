@@ -18,11 +18,18 @@ namespace HexcellsMultiplayer
         public bool Connected => CurrentState == State.Connected;
         public State CurrentState = State.Disconnected;
 
+        #region Events
         /// <summary>
         /// Parameters: seed, hardMode
         /// </summary>
         public Action<int, bool> OnGameStart;
+
+        /// <summary>
+        /// Parameters: index, data
+        /// </summary>
+        public Action<int, string> OnGameStartCustom;
         public Action OnGameEnd;
+        #endregion
 
         public readonly List<HexPeer> Peers = new List<HexPeer>();
         private Peer? hostPeer;
@@ -57,6 +64,10 @@ namespace HexcellsMultiplayer
             else if(packet is GameStartPacket sp && sender.ID == hostPeer.Value.ID)
             {
                 OnGameStart?.Invoke(sp.Seed, sp.HardMode);
+            }
+            else if (packet is GameStartCustomPacket spc && sender.ID == hostPeer.Value.ID)
+            {
+                OnGameStartCustom?.Invoke(spc.LevelIndex, spc.LevelText);
             }
             else if(packet is GameEndPacket ep && sender.ID == hostPeer.Value.ID)
             {

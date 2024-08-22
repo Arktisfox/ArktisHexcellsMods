@@ -29,6 +29,7 @@ namespace HexcellsMultiplayer
             {(byte)PacketTypeCodes.GameStart, typeof(GameStartPacket)},
             {(byte)PacketTypeCodes.PeerList, typeof(PeerListPacket)},
             {(byte)PacketTypeCodes.Update, typeof(UpdatePacket)},
+            {(byte)PacketTypeCodes.GameStartCustom, typeof(GameStartCustomPacket)},
         };
 
         protected virtual void HandlePacket(ref Peer sender, ref Packet basePacket, PacketBase packet) 
@@ -75,6 +76,11 @@ namespace HexcellsMultiplayer
                 enetPacket.Create(data, flags);
                 peer.Send(channelID, ref enetPacket);
             }
+        }
+
+        protected void KickPeer(ref Peer peer, uint reason)
+        {
+            peer.Disconnect(reason);
         }
 
         public abstract void UpdateLoop();

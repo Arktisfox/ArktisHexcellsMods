@@ -1,6 +1,7 @@
 ﻿using ENet;
 using System.Collections.Generic;
 using HexcellsMultiplayer.Packets;
+using System.Reflection;
 
 namespace HexcellsMultiplayer
 {
@@ -14,6 +15,11 @@ namespace HexcellsMultiplayer
 			BroadcastPacket(new GameStartPacket() { HardMode = hard, Seed = seed }, PacketFlags.Reliable);
 		}
 
+		public void StartCustomGame(int levelIndex, string levelText)
+		{
+			BroadcastPacket(new GameStartCustomPacket() { LevelText = levelText, LevelIndex = levelIndex }, PacketFlags.Reliable);
+        }
+
 		public void StopGame()
         {
 			BroadcastPacket(new GameEndPacket(), PacketFlags.Reliable);
@@ -23,8 +29,17 @@ namespace HexcellsMultiplayer
         {
             if(packet is ConnectPacket ctp)
             {
-                Peers.Add(new HexPeer(ctp.Name, sender));
-                BroadcastPacket(new PeerListPacket(this), PacketFlags.Reliable); // send everyone the new peer list
+				var modVersion = Assembly.GetExecutingAssembly().GetName().Version;
+				if (modVersion.ToString() != ctp.ModVersion)
+				{
+					// Reject this client
+					KickPeer(ref sender, 0);
+				}
+				else
+				{
+					Peers.Add(new HexPeer(ctp.Name, sender));
+					BroadcastPacket(new PeerListPacket(this), PacketFlags.Reliable); // send everyone the new peer list
+				}
             }
             else if(packet is DisconnectPacket dcp)
             {

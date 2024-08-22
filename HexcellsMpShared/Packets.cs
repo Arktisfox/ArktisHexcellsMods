@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace HexcellsMultiplayer.Packets
 {
@@ -11,7 +12,8 @@ namespace HexcellsMultiplayer.Packets
         PeerList = 2,
         Update = 3,
         GameStart = 4,
-        GameQuit = 5
+        GameQuit = 5,
+        GameStartCustom = 6
     }
 
     public abstract class PacketBase
@@ -125,6 +127,7 @@ namespace HexcellsMultiplayer.Packets
     public class ConnectPacket  : PacketBase
     {
         public string Name;
+        public string ModVersion;
 
         public override void Deserialize(Stream stream)
         {
@@ -132,6 +135,16 @@ namespace HexcellsMultiplayer.Packets
 
             var reader = new BinaryReader(stream);
             Name = reader.ReadString();
+
+            // older versions of the mod had no version string
+            if(stream.Position != stream.Length)
+            {
+                ModVersion = reader.ReadString();
+            }
+            else
+            {
+                ModVersion = "UNKNOWN";
+            }
         }
 
         public override void Serialize(Stream stream)
@@ -140,11 +153,12 @@ namespace HexcellsMultiplayer.Packets
 
             var writer = new BinaryWriter(stream);
             writer.Write(Name);
+            writer.Write(ModVersion);
         }
 
         public ConnectPacket() : base((int)PacketTypeCodes.Connect)
         {
-
+            ModVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
     }
 
@@ -172,6 +186,35 @@ namespace HexcellsMultiplayer.Packets
         }
 
         public GameStartPacket() : base((int)PacketTypeCodes.GameStart)
+        {
+
+        }
+    }
+
+    public class GameStartCustomPacket : PacketBase
+    {
+        public string LevelText;
+        public int LevelIndex;
+
+        public override void Deserialize(Stream stream)
+        {
+            base.Deserialize(stream);
+
+            var reader = new BinaryReader(stream);
+            LevelIndex = reader.ReadInt32();
+            LevelText = StringCompressor.DecompressString(reader.ReadString());
+        }
+
+        public override void Serialize(Stream stream)
+        {
+            base.Serialize(stream);
+
+            var writer = new BinaryWriter(stream);
+            writer.Write(LevelIndex);
+            writer.Write(StringCompressor.CompressString(LevelText));
+        }
+
+        public GameStartCustomPacket() : base((int)PacketTypeCodes.GameStartCustom)
         {
 
         }
