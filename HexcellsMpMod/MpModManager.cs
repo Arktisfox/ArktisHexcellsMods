@@ -100,7 +100,7 @@ namespace HexcellsMpMod
 				if (address.Contains(":"))
 				{
 					string[] addressAndPort = address.Split(':');
-					client.Connect(addressAndPort[0], int.Parse(addressAndPort[1]));
+					client.Connect(addressAndPort[0], ushort.Parse(addressAndPort[1]));
 				}
 				else
 				{
