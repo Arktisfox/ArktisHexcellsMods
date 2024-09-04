@@ -72,10 +72,10 @@ namespace HexcellsMpMod
 		private void OnDestroy()
 		{
 			Disconnect();
-			if(server != null)
-            {
+			if (server != null)
+			{
 				server.Dispose();
-            }
+			}
 			Library.Deinitialize();
 		}
 
@@ -97,7 +97,15 @@ namespace HexcellsMpMod
 					OnGameStartCustom = new Action<int, string>(StartGameCustomCB),
 					OnGameEnd = new Action(QuitGameCB)
 				};
-				client.Connect(address, 6666);
+				if (address.Contains(":"))
+				{
+					string[] addressAndPort = address.Split(':');
+					client.Connect(addressAndPort[0], ushort.Parse(addressAndPort[1]));
+				}
+				else
+				{
+					client.Connect(address, 6666);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -165,17 +173,17 @@ namespace HexcellsMpMod
 		private void StartGameCustomCB(int levelIndex, string levelText)
 		{
 			var levelManager = GameObject.Find("Custom Level Manager(Clone)").GetComponent<CustomLevelManager>();
-			
+
 			levelManager.SetRandomMusic();
 			levelManager.levelDataString = levelText;
 			levelManager.currentLevelIndex = levelIndex;
 
-            GameObject.Find("Fader").GetComponent<FaderScript>().FadeOut(38);
+			GameObject.Find("Fader").GetComponent<FaderScript>().FadeOut(38);
 			if (GameObject.Find("Loading Text") != null)
 			{
 				GameObject.Find("Loading Text").GetComponent<LoadingText>().FadeIn();
 			}
-        }
+		}
 
 		public void HostStartGame(int seed, bool hardMode)
 		{
@@ -187,7 +195,7 @@ namespace HexcellsMpMod
 
 		public void HostStartGame(int levelIndex, string levelData)
 		{
-			if(server != null)
+			if (server != null)
 			{
 				server.StartCustomGame(levelIndex, levelData);
 			}
@@ -249,7 +257,7 @@ namespace HexcellsMpMod
 			boxStyle.normal.textColor = Color.white;
 			boxStyle.richText = true;
 			boxStyle.padding = new RectOffset(8, 8, 2, 2);
-			
+
 			boxStyleDone = new GUIStyle(boxStyle);
 			boxStyleDone.normal.background = Utils.MakeTex(2, 2, Color.white);
 			boxStyleDone.normal.textColor = Color.white;
@@ -390,9 +398,9 @@ namespace HexcellsMpMod
 
 			// detect mouse hovering card area and set UI color accordingly
 			Vector3 mousePosition = Input.mousePosition;
-			bool mouseHoveringUI = (mousePosition.x >= drawOriginX && mousePosition.x <= drawEndX) 
-							    && (mousePosition.y > (Screen.height - drawEndY));
-			
+			bool mouseHoveringUI = (mousePosition.x >= drawOriginX && mousePosition.x <= drawEndX)
+								&& (mousePosition.y > (Screen.height - drawEndY));
+
 			Color oldUIColor = GUI.color;
 			GUI.color = (mouseHoveringUI) ? new Color(1f, 1f, 1f, 0.5f) : Color.white;
 
