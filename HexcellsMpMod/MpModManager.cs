@@ -97,7 +97,18 @@ namespace HexcellsMpMod
 					OnGameStartCustom = new Action<int, string>(StartGameCustomCB),
 					OnGameEnd = new Action(QuitGameCB)
 				};
-				client.Connect(address, 6666);
+				if (address.Contains(":"))
+				{
+					string[] addressAndPort = address.Split(':');
+					if (ushort.TryParse(addressAndPort[1], out ushort port))
+					{
+						client.Connect(addressAndPort[0], port);
+					}
+				}
+				else
+				{
+					client.Connect(address, 6666);
+				}
 			}
 			catch (Exception ex)
 			{
